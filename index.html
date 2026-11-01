@@ -1,355 +1,51 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NUVOCO | Naniber Limestone Mines</title>
-
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+max-width:400px;
 }
-
-:root {
-    --orange: #f47721;
-    --dark: #252a30;
-    --light: #f4f5f7;
+.modal-box h2 {margin-bottom:20px}
+.close {float:right;cursor:pointer;font-size:22px}
+.admin-only {display:none}
+.delete-btn {
+    background:#dc3545;color:white;border:0;
+    padding:7px 10px;border-radius:4px;cursor:pointer;
 }
-
-body {
-    background: var(--light);
-    color: #30343a;
+@media(max-width:850px) {
+    .cards {grid-template-columns:repeat(2,1fr)}
 }
-
-/* NUVOCO WATERMARK ON EVERY PAGE */
-
-body::before {
-    content: "NUVOCO";
-    position: fixed;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(-25deg);
-    font-size: 150px;
-    font-weight: 900;
-    letter-spacing: 15px;
-    color: rgba(244,119,33,0.035);
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* HEADER */
-
-.topbar {
-    background: var(--dark);
-    color: white;
-    padding: 10px 35px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-}
-
-header {
-    background: white;
-    padding: 20px 35px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #ddd;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.logo-box {
-    background: var(--orange);
-    color: white;
-    font-size: 27px;
-    font-weight: bold;
-    padding: 12px 17px;
-    border-radius: 7px;
-}
-
-.logo h1 {
-    color: var(--dark);
-    font-size: 25px;
-}
-
-.logo p {
-    color: #777;
-    font-size: 12px;
-    margin-top: 5px;
-}
-
-/* NAVIGATION */
-
-nav {
-    background: white;
-    display: flex;
-    overflow-x: auto;
-    padding: 0 25px;
-    border-bottom: 4px solid var(--orange);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
-
-nav button {
-    background: none;
-    border: none;
-    padding: 17px 20px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #444;
-    white-space: nowrap;
-}
-
-nav button:hover,
-nav button.active {
-    color: var(--orange);
-    border-bottom: 3px solid var(--orange);
-}
-
-/* MAIN */
-
-main {
-    position: relative;
-    z-index: 1;
-    max-width: 1450px;
-    margin: auto;
-    padding: 30px;
-}
-
-.hero {
-    background: linear-gradient(110deg, #252a30, #484e55);
-    padding: 55px 40px;
-    border-radius: 12px;
-    color: white;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero h2 {
-    font-size: 38px;
-    margin: 15px 0;
-}
-
-.hero p {
-    color: #ddd;
-    line-height: 1.7;
-}
-
-.hero .tag {
-    color: #ffad72;
-    font-weight: bold;
-    letter-spacing: 3px;
-    font-size: 12px;
-}
-
-/* PAGE SECTIONS */
-
-.page {
-    display: none;
-}
-
-.page.active {
-    display: block;
-}
-
-.section-title {
-    margin: 30px 0 18px;
-}
-
-.section-title h2 {
-    font-size: 23px;
-    color: var(--dark);
-}
-
-.section-title p {
-    color: #777;
-    margin-top: 7px;
-    font-size: 13px;
-}
-
-/* DASHBOARD CARDS */
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-    margin-top: 22px;
-}
-
-.card {
-    background: white;
-    padding: 23px;
-    border-radius: 10px;
-    border: 1px solid #e5e5e5;
-    border-left: 4px solid var(--orange);
-    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
-}
-
-.card h3 {
-    font-size: 15px;
-    margin-bottom: 12px;
-    color: #444;
-}
-
-.card h2 {
-    font-size: 28px;
-    color: var(--orange);
-}
-
-.card p {
-    color: #777;
-    font-size: 12px;
-    margin-top: 8px;
-}
-
-/* CONTENT BOXES */
-
-.content-box {
-    background: white;
-    padding: 24px;
-    border-radius: 10px;
-    margin-top: 20px;
-    border: 1px solid #e5e5e5;
-}
-
-.content-box h3 {
-    margin-bottom: 15px;
-}
-
-/* TABLES */
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-}
-
-th, td {
-    padding: 15px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-    font-size: 13px;
-}
-
-th {
-    background: #30343a;
-    color: white;
-}
-
-/* BUTTONS */
-
-.btn {
-    background: var(--orange);
-    border: none;
-    padding: 11px 18px;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.btn:hover {
-    background: #d96012;
-}
-
-/* FORMS */
-
-input, select, textarea {
-    width: 100%;
-    padding: 12px;
-    margin: 9px 0 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-/* FOOTER */
-
-footer {
-    background: var(--dark);
-    color: white;
-    padding: 25px 35px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-    font-size: 12px;
-    position: relative;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:900px) {
-    .cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
 @media(max-width:550px) {
-    .cards {
-        grid-template-columns: 1fr;
-    }
-
-    main {
-        padding: 15px;
-    }
-
-    .hero h2 {
-        font-size: 27px;
-    }
-
-    header {
-        padding: 15px;
-    }
-
-    .topbar {
-        padding: 10px 15px;
-    }
+    .cards {grid-template-columns:1fr}
+    header {flex-wrap:wrap;gap:15px}
+    .brand img {width:125px}
+    main {padding:15px}
+    .hero {padding:30px 20px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="topbar">
-    <span>NUVOCO | MINES DEPARTMENT</span>
-    <span>Kutch, Gujarat, India</span>
-</div>
-
 <header>
-    <div class="logo">
-        <div class="logo-box">N</div>
+    <div class="brand">
+        <img src="nuvoco-logo.jpg" alt="NUVOCO Logo">
         <div>
-            <h1>NUVOCO</h1>
-            <p>Naniber Limestone Mines</p>
+            <h2>Naniber Limestone Mines</h2>
+            <p>Kutch, Gujarat | Mines Department</p>
         </div>
     </div>
-    <div style="text-align:right">
-        <strong>MINES DEPARTMENT</strong>
-        <p style="font-size:12px;color:#777;margin-top:5px">
-            Internal Management Portal
-        </p>
-    </div>
+    <button class="login-btn" onclick="openLogin()" id="loginButton">
+        HOD Login
+    </button>
 </header>
 
 <nav>
     <button class="active" onclick="showPage('home',this)">Dashboard</button>
     <button onclick="showPage('operations',this)">Operations</button>
     <button onclick="showPage('production',this)">Production</button>
+    <button onclick="showPage('observations',this)">Observations</button>
     <button onclick="showPage('safety',this)">Safety</button>
     <button onclick="showPage('environment',this)">Environment</button>
     <button onclick="showPage('equipment',this)">Equipment</button>
     <button onclick="showPage('documents',this)">Documents</button>
-    <button onclick="showPage('team',this)">Team</button>
+    <button onclick="showPage('admin',this)" id="adminTab" style="display:none">Admin Panel</button>
 </nav>
 
 <main>
@@ -359,54 +55,53 @@ footer {
 <section class="page active" id="home">
 
 <div class="hero">
-    <span class="tag">MINES DEPARTMENT PORTAL</span>
-    <h2>Naniber Limestone Mines</h2>
+    <small>NUVOCO | MINES DEPARTMENT</small>
+    <h1>Naniber Limestone Mines</h1>
     <p>
         Kutch, Gujarat, India<br>
-        A centralised management portal for mine operations,
-        production monitoring, safety management and team coordination.
+        Mines Department Management Portal<br>
+        Operations | Production | Safety | Environment
     </p>
 </div>
 
-<div class="section-title">
-    <h2>Department Overview</h2>
-    <p>Quick overview of the mine and department.</p>
+<div class="heading">
+    <h2>Department Dashboard</h2>
+    <p>Centralised mine management and department information.</p>
 </div>
 
 <div class="cards">
 
     <div class="card">
-        <h3>Mine Location</h3>
+        <h3>MINE LOCATION</h3>
         <h2>Kutch</h2>
         <p>Gujarat, India</p>
     </div>
 
     <div class="card">
-        <h3>Department</h3>
-        <h2>Mines</h2>
-        <p>Mining Operations</p>
-    </div>
-
-    <div class="card">
-        <h3>Mine Type</h3>
+        <h3>MINE TYPE</h3>
         <h2>Limestone</h2>
         <p>Naniber Limestone Mines</p>
     </div>
 
     <div class="card">
-        <h3>Portal</h3>
-        <h2>Active</h2>
-        <p>Department Dashboard</p>
+        <h3>DEPARTMENT</h3>
+        <h2>Mines</h2>
+        <p>Mining Operations</p>
+    </div>
+
+    <div class="card">
+        <h3>OBSERVATIONS</h3>
+        <h2 id="observationCount">0</h2>
+        <p>Recorded observations</p>
     </div>
 
 </div>
 
-<div class="content-box">
-    <h3>Department Noticeboard</h3>
-    <p>• Daily mine operations review</p><br>
-    <p>• Safety inspection updates</p><br>
-    <p>• Equipment maintenance review</p><br>
-    <p>• Weekly department meeting</p>
+<div class="panel">
+    <h3>Latest Department Observations</h3>
+    <div id="homeObservations">
+        No observations have been added yet.
+    </div>
 </div>
 
 </section>
@@ -415,39 +110,37 @@ footer {
 
 <section class="page" id="operations">
 
-<div class="section-title">
+<div class="heading">
     <h2>Mine Operations</h2>
-    <p>Operational management and daily reporting.</p>
+    <p>Daily operational activities and shift monitoring.</p>
 </div>
 
 <div class="cards">
     <div class="card">
         <h3>Daily Operations</h3>
-        <h2>—</h2>
-        <p>Daily activity report</p>
+        <h2>Reports</h2>
+        <p>Daily activity records</p>
     </div>
-
     <div class="card">
         <h3>Working Areas</h3>
-        <h2>—</h2>
-        <p>Approved working areas</p>
+        <h2>Mine</h2>
+        <p>Working area information</p>
     </div>
-
     <div class="card">
-        <h3>Shift Reports</h3>
-        <h2>—</h2>
+        <h3>Shift Management</h3>
+        <h2>Shifts</h2>
         <p>Shift-wise reporting</p>
     </div>
-
     <div class="card">
-        <h3>Planning</h3>
-        <h2>—</h2>
-        <p>Mine planning updates</p>
+        <h3>Mine Planning</h3>
+        <h2>Plans</h2>
+        <p>Planning and coordination</p>
     </div>
 </div>
 
-<div class="content-box">
+<div class="panel">
     <h3>Daily Operations Register</h3>
+    <div class="table-wrap">
     <table>
         <tr>
             <th>Date</th>
@@ -462,6 +155,7 @@ footer {
             <td>Awaiting entry</td>
         </tr>
     </table>
+    </div>
 </div>
 
 </section>
@@ -470,39 +164,37 @@ footer {
 
 <section class="page" id="production">
 
-<div class="section-title">
+<div class="heading">
     <h2>Production Management</h2>
-    <p>Production monitoring and reporting dashboard.</p>
+    <p>Production and dispatch information.</p>
 </div>
 
 <div class="cards">
     <div class="card">
         <h3>Daily Production</h3>
         <h2>—</h2>
-        <p>Enter verified quantity</p>
+        <p>Verified quantity</p>
     </div>
-
     <div class="card">
         <h3>Monthly Production</h3>
         <h2>—</h2>
         <p>Monthly summary</p>
     </div>
-
     <div class="card">
         <h3>Dispatch</h3>
         <h2>—</h2>
         <p>Dispatch records</p>
     </div>
-
     <div class="card">
-        <h3>Stock</h3>
+        <h3>Stock Position</h3>
         <h2>—</h2>
-        <p>Stock position</p>
+        <p>Stock information</p>
     </div>
 </div>
 
-<div class="content-box">
-    <h3>Production Report</h3>
+<div class="panel">
+    <h3>Production Register</h3>
+    <div class="table-wrap">
     <table>
         <tr>
             <th>Date</th>
@@ -511,12 +203,59 @@ footer {
             <th>Dispatch</th>
         </tr>
         <tr>
-            <td>To be entered</td>
+            <td>—</td>
             <td>Limestone</td>
             <td>—</td>
             <td>—</td>
         </tr>
     </table>
+    </div>
+</div>
+
+</section>
+
+<!-- OBSERVATIONS -->
+
+<section class="page" id="observations">
+
+<div class="heading">
+    <h2>Mine Observations</h2>
+    <p>Department observations and updates.</p>
+</div>
+
+<div class="panel">
+    <h3>Observation Register</h3>
+    <div id="observationList">
+        No observations available.
+    </div>
+</div>
+
+<div class="panel admin-only" id="observationEditor">
+    <h3>Add New Observation</h3>
+
+    <label>Date</label>
+    <input type="date" id="obsDate">
+
+    <label>Observation Title</label>
+    <input type="text" id="obsTitle"
+           placeholder="Enter observation title">
+
+    <label>Department / Area</label>
+    <select id="obsArea">
+        <option>Mines</option>
+        <option>Safety</option>
+        <option>Environment</option>
+        <option>Equipment</option>
+        <option>Operations</option>
+    </select>
+
+    <label>Observation Details</label>
+    <textarea id="obsDetails"
+              placeholder="Enter observation details"></textarea>
+
+    <button class="btn" onclick="addObservation()">
+        Save Observation
+    </button>
 </div>
 
 </section>
@@ -525,51 +264,38 @@ footer {
 
 <section class="page" id="safety">
 
-<div class="section-title">
+<div class="heading">
     <h2>Safety Management</h2>
-    <p>Safety monitoring and compliance records.</p>
+    <p>Mine safety and inspection records.</p>
 </div>
 
 <div class="cards">
     <div class="card">
         <h3>Safety Inspections</h3>
         <h2>01</h2>
-        <p>Inspection register module</p>
+        <p>Inspection register</p>
     </div>
-
     <div class="card">
-        <h3>Training</h3>
+        <h3>Safety Training</h3>
         <h2>02</h2>
-        <p>Training records module</p>
+        <p>Training records</p>
     </div>
-
     <div class="card">
         <h3>Toolbox Meetings</h3>
         <h2>03</h2>
-        <p>Meeting records module</p>
+        <p>Meeting records</p>
     </div>
-
     <div class="card">
         <h3>Corrective Actions</h3>
         <h2>04</h2>
-        <p>Action tracking module</p>
+        <p>Action register</p>
     </div>
 </div>
 
-<div class="content-box">
-    <h3>Safety Register</h3>
-    <table>
-        <tr>
-            <th>Activity</th>
-            <th>Responsible Person</th>
-            <th>Status</th>
-        </tr>
-        <tr>
-            <td>Daily Inspection</td>
-            <td>To be assigned</td>
-            <td>Update required</td>
-        </tr>
-    </table>
+<div class="panel">
+    <h3>Safety Department</h3>
+    <p>Maintain inspection reports, safety observations,
+       training records and corrective action updates here.</p>
 </div>
 
 </section>
@@ -578,7 +304,7 @@ footer {
 
 <section class="page" id="environment">
 
-<div class="section-title">
+<div class="heading">
     <h2>Environment Management</h2>
     <p>Environmental monitoring and reporting.</p>
 </div>
@@ -586,26 +312,23 @@ footer {
 <div class="cards">
     <div class="card">
         <h3>Air Quality</h3>
-        <h2>01</h2>
-        <p>Monitoring reports</p>
+        <h2>Reports</h2>
+        <p>Dust monitoring</p>
     </div>
-
     <div class="card">
         <h3>Water Management</h3>
-        <h2>02</h2>
+        <h2>Records</h2>
         <p>Water monitoring</p>
     </div>
-
     <div class="card">
         <h3>Plantation</h3>
-        <h2>03</h2>
+        <h2>Updates</h2>
         <p>Greenbelt activities</p>
     </div>
-
     <div class="card">
         <h3>Compliance</h3>
-        <h2>04</h2>
-        <p>Compliance records</p>
+        <h2>Records</h2>
+        <p>Environmental compliance</p>
     </div>
 </div>
 
@@ -615,34 +338,31 @@ footer {
 
 <section class="page" id="equipment">
 
-<div class="section-title">
+<div class="heading">
     <h2>Equipment Management</h2>
-    <p>Fleet monitoring and maintenance records.</p>
+    <p>Machinery and maintenance records.</p>
 </div>
 
 <div class="cards">
     <div class="card">
-        <h3>Heavy Machinery</h3>
-        <h2>—</h2>
-        <p>Equipment register</p>
+        <h3>Equipment Register</h3>
+        <h2>Fleet</h2>
+        <p>Machinery details</p>
     </div>
-
     <div class="card">
         <h3>Maintenance</h3>
-        <h2>—</h2>
-        <p>Service records</p>
+        <h2>Service</h2>
+        <p>Maintenance schedule</p>
     </div>
-
     <div class="card">
-        <h3>Breakdowns</h3>
-        <h2>—</h2>
-        <p>Breakdown register</p>
+        <h3>Breakdown Records</h3>
+        <h2>Log</h2>
+        <p>Breakdown information</p>
     </div>
-
     <div class="card">
         <h3>Availability</h3>
-        <h2>—</h2>
-        <p>Fleet availability</p>
+        <h2>Status</h2>
+        <p>Fleet status</p>
     </div>
 </div>
 
@@ -652,13 +372,14 @@ footer {
 
 <section class="page" id="documents">
 
-<div class="section-title">
+<div class="heading">
     <h2>Documents & Reports</h2>
-    <p>Department document management section.</p>
+    <p>Department documentation centre.</p>
 </div>
 
-<div class="content-box">
+<div class="panel">
     <h3>Document Categories</h3>
+    <div class="table-wrap">
     <table>
         <tr>
             <th>Document</th>
@@ -666,7 +387,7 @@ footer {
             <th>Access</th>
         </tr>
         <tr>
-            <td>Daily Production Reports</td>
+            <td>Production Reports</td>
             <td>Mines</td>
             <td>Authorised users</td>
         </tr>
@@ -681,48 +402,48 @@ footer {
             <td>Authorised users</td>
         </tr>
         <tr>
-            <td>Environmental Reports</td>
+            <td>Environment Reports</td>
             <td>Environment</td>
             <td>Restricted</td>
         </tr>
     </table>
+    </div>
 </div>
 
 </section>
 
-<!-- TEAM -->
+<!-- ADMIN PANEL -->
 
-<section class="page" id="team">
+<section class="page" id="admin">
 
-<div class="section-title">
-    <h2>Team & Department Contacts</h2>
-    <p>Department coordination and responsibilities.</p>
+<div class="heading">
+    <h2>HOD Administration Panel</h2>
+    <p>Manage department observations.</p>
 </div>
 
 <div class="cards">
     <div class="card">
-        <h3>Head of Department</h3>
-        <h2>HOD</h2>
-        <p>Mines Department</p>
+        <h3>Total Observations</h3>
+        <h2 id="adminCount">0</h2>
+        <p>Saved entries</p>
     </div>
-
     <div class="card">
-        <h3>Mine Operations</h3>
-        <h2>01</h2>
-        <p>Operations Team</p>
+        <h3>Portal Access</h3>
+        <h2>Admin</h2>
+        <p>Demo administration mode</p>
     </div>
+</div>
 
-    <div class="card">
-        <h3>Safety Team</h3>
-        <h2>02</h2>
-        <p>Safety Coordination</p>
-    </div>
+<div class="panel">
+    <h3>Manage Observations</h3>
+    <p>Use the Observations section to add new entries.
+       You can delete entries below.</p>
+    <br>
+    <div id="adminObservationList"></div>
+</div>
 
-    <div class="card">
-        <h3>Survey & Planning</h3>
-        <h2>03</h2>
-        <p>Planning Team</p>
-    </div>
+<div class="panel">
+    <button class="btn" onclick="logout()">Logout</button>
 </div>
 
 </section>
@@ -734,26 +455,225 @@ footer {
     <span>Mines Department · Kutch, Gujarat</span>
 </footer>
 
+<!-- LOGIN WINDOW -->
+
+<div class="modal" id="loginModal">
+
+<div class="modal-box">
+
+    <span class="close" onclick="closeLogin()">×</span>
+
+    <h2>HOD Login</h2>
+    <p style="font-size:13px;color:#777">
+        Naniber Limestone Mines Administration
+    </p>
+
+    <br>
+
+    <form onsubmit="login(event)">
+
+        <label>User ID</label>
+        <input type="text" id="username"
+               placeholder="Enter User ID" required>
+
+        <label>Password</label>
+        <input type="password" id="password"
+               placeholder="Enter Password" required>
+
+        <button class="btn" style="width:100%">
+            Login
+        </button>
+
+    </form>
+
+    <p id="loginMessage"
+       style="color:red;font-size:12px;margin-top:12px"></p>
+
+</div>
+</div>
+
 <script>
-function showPage(pageId, button) {
 
-    document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-    });
+// DEMO LOGIN ONLY
+// Do not use these credentials for a real company portal.
 
-    document.querySelectorAll('nav button').forEach(btn => {
-        btn.classList.remove('active');
-    });
+const DEMO_USER = "hod";
+const DEMO_PASSWORD = "nuvoco123";
 
-    document.getElementById(pageId).classList.add('active');
+let isAdmin = false;
 
-    button.classList.add('active');
-
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+function openLogin() {
+    document.getElementById("loginModal").style.display="flex";
 }
+
+function closeLogin() {
+    document.getElementById("loginModal").style.display="none";
+}
+
+function login(event) {
+    event.preventDefault();
+
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    if(user === DEMO_USER && pass === DEMO_PASSWORD) {
+
+        isAdmin = true;
+
+        document.querySelectorAll(".admin-only").forEach(el=>{
+            el.style.display="block";
+        });
+
+        document.getElementById("adminTab").style.display="block";
+        document.getElementById("loginButton").innerText="Logout";
+
+        document.getElementById("loginButton").onclick=logout;
+
+        closeLogin();
+        alert("Demo login successful!");
+
+        updateObservations();
+
+    } else {
+        document.getElementById("loginMessage").innerText =
+        "Incorrect User ID or Password";
+    }
+}
+
+function logout() {
+    isAdmin = false;
+
+    document.querySelectorAll(".admin-only").forEach(el=>{
+        el.style.display="none";
+    });
+
+    document.getElementById("adminTab").style.display="none";
+    document.getElementById("loginButton").innerText="HOD Login";
+    document.getElementById("loginButton").onclick=openLogin;
+
+    showPage("home",document.querySelector('nav button'));
+}
+
+function showPage(id,button) {
+
+    if(id==="admin" && !isAdmin) {
+        alert("Admin login required.");
+        return;
+    }
+
+    document.querySelectorAll(".page").forEach(page=>{
+        page.classList.remove("active");
+    });
+
+    document.querySelectorAll("nav button").forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+    button.classList.add("active");
+
+    updateObservations();
+
+    window.scrollTo({top:0,behavior:"smooth"});
+}
+
+// OBSERVATION MANAGEMENT
+
+function getObservations() {
+    return JSON.parse(localStorage.getItem("mineObservations") || "[]");
+}
+
+function addObservation() {
+
+    if(!isAdmin) {
+        alert("Admin access required.");
+        return;
+    }
+
+    const date=document.getElementById("obsDate").value;
+    const title=document.getElementById("obsTitle").value.trim();
+    const area=document.getElementById("obsArea").value;
+    const details=document.getElementById("obsDetails").value.trim();
+
+    if(!date || !title || !details) {
+        alert("Please complete all observation fields.");
+        return;
+    }
+
+    let observations=getObservations();
+
+    observations.unshift({
+        date:date,
+        title:title,
+        area:area,
+        details:details
+    });
+
+    localStorage.setItem("mineObservations",JSON.stringify(observations));
+
+    document.getElementById("obsTitle").value="";
+    document.getElementById("obsDetails").value="";
+
+    updateObservations();
+
+    alert("Observation saved on this browser.");
+}
+
+function deleteObservation(index) {
+
+    if(!isAdmin) return;
+
+    if(!confirm("Delete this observation?")) return;
+
+    let observations=getObservations();
+
+    observations.splice(index,1);
+
+    localStorage.setItem("mineObservations",JSON.stringify(observations));
+
+    updateObservations();
+}
+
+function updateObservations() {
+
+    const observations=getObservations();
+
+    document.getElementById("observationCount").innerText=observations.length;
+    document.getElementById("adminCount").innerText=observations.length;
+
+    const home=document.getElementById("homeObservations");
+    const list=document.getElementById("observationList");
+    const admin=document.getElementById("adminObservationList");
+
+    if(observations.length===0) {
+        home.innerHTML="No observations have been added yet.";
+        list.innerHTML="No observations available.";
+        admin.innerHTML="No observations available.";
+        return;
+    }
+
+    const safe=value=>String(value).replace(/[&<>"']/g,c=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",
+        '"':"&quot;","'":"&#39;"
+    })[c]);
+
+    const html=observations.map((o,i)=>`
+        <div class="observation">
+            <strong>${safe(o.title)}</strong><br>
+            <small>${safe(o.date)} | ${safe(o.area)}</small>
+            <p>${safe(o.details)}</p>
+            ${isAdmin ? `<br><button class="delete-btn"
+            onclick="deleteObservation(${i})">Delete</button>` : ""}
+        </div>
+    `).join("");
+
+    home.innerHTML=html;
+    list.innerHTML=html;
+    admin.innerHTML=html;
+}
+
+updateObservations();
+
 </script>
 
 </body>
