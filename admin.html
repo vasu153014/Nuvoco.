@@ -4,432 +4,458 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Naniber Mines | Admin Dashboard</title>
+<title>Naniber Mines | HOD Dashboard</title>
 
 <style>
 * {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
-
 body {
-    margin: 0;
-    background: #f2f5ef;
-    color: #26352d;
+  margin: 0;
+  background: #f2f5ef;
+  color: #26352d;
 }
-
 body::before {
-    content: "NUVOCO";
-    position: fixed;
-    right: -20px;
-    bottom: 20px;
-    font-size: 160px;
-    font-weight: bold;
-    color: rgba(23,77,58,0.035);
-    z-index: -1;
-    pointer-events: none;
+  content: "NANIBER";
+  position: fixed;
+  right: -20px;
+  bottom: 20px;
+  font-size: 150px;
+  font-weight: bold;
+  color: rgba(23,77,58,0.035);
+  z-index: -1;
+  pointer-events: none;
 }
-
 .container {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 20px;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
 }
-
 .box {
-    background: white;
-    padding: 30px;
-    border-radius: 7px;
-    border: 1px solid #e1e8df;
-    margin-bottom: 25px;
+  background: white;
+  padding: 30px;
+  border-radius: 7px;
+  border: 1px solid #e1e8df;
+  margin-bottom: 25px;
 }
-
-h2 {
-    color: #174d3a;
-}
-
+h2, h3 { color: #174d3a; }
 label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
-    font-size: 13px;
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 13px;
 }
-
 input, textarea, select {
-    width: 100%;
-    padding: 13px;
-    margin-top: 7px;
-    border: 1px solid #d4ded3;
-    border-radius: 4px;
+  width: 100%;
+  padding: 13px;
+  margin-top: 7px;
+  border: 1px solid #d4ded3;
+  border-radius: 4px;
 }
-
-textarea {
-    min-height: 100px;
-}
-
+textarea { min-height: 100px; }
 button {
-    background: #174d3a;
-    color: white;
-    border: none;
-    padding: 13px 20px;
-    margin-top: 18px;
-    cursor: pointer;
-    border-radius: 4px;
+  background: #174d3a;
+  color: white;
+  border: none;
+  padding: 13px 20px;
+  margin: 12px 5px 0 0;
+  cursor: pointer;
+  border-radius: 4px;
 }
-
-button:hover {
-    background: #32674c;
-}
-
-.delete {
-    background: #a43b3b;
-}
-
+button:hover { background: #32674c; }
 .secondary {
-    background: #e8eee6;
-    color: #174d3a;
+  background: #e8eee6;
+  color: #174d3a;
 }
-
-.hidden {
-    display: none;
-}
-
+.delete { background: #a43b3b; }
+.hidden { display: none !important; }
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 25px;
-    background: white;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  background: white;
 }
-
 td, th {
-    padding: 12px;
-    border-bottom: 1px solid #e5e9e2;
-    text-align: left;
-    font-size: 13px;
+  padding: 12px;
+  border-bottom: 1px solid #e5e9e2;
+  text-align: left;
+  font-size: 13px;
+  overflow-wrap: anywhere;
 }
-
 th {
-    background: #edf2e9;
-    color: #174d3a;
+  background: #edf2e9;
+  color: #174d3a;
 }
-
-.warning {
-    background: #fff4dc;
-    padding: 15px;
-    font-size: 12px;
-    line-height: 1.6;
-    margin-top: 20px;
+.notice {
+  background: #fff4dc;
+  padding: 15px;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 20px;
 }
-
+#message { line-height: 1.6; }
 @media(max-width:700px) {
-    .container {
-        margin: 15px auto;
-    }
-
-    .box {
-        padding: 18px;
-    }
+  .container { margin: 15px auto; }
+  .box { padding: 18px; }
+  table { display: block; overflow-x: auto; }
 }
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
-<!-- LOGIN -->
-
 <div class="box" id="login">
+  <h2>Naniber Mines</h2>
+  <h3>HOD Administrator Login</h3>
+  <p>Mines Department | Authorised Personnel Only</p>
 
-    <h2>Naniber Mines</h2>
-    <h3>Administrator Login</h3>
+  <button id="googleLogin">SIGN IN WITH GOOGLE</button>
 
-    <p>Mines Department | Authorised Personnel Only</p>
-
-    <label>User ID</label>
-    <input type="text" id="username" placeholder="Enter User ID">
-
-    <label>Password</label>
-    <input type="password" id="password" placeholder="Enter Password">
-
-    <button onclick="loginUser()">LOGIN</button>
-
-    <p id="message"></p>
-
-    <div class="warning">
-        Demo login only. This client-side login is not secure
-        enough for real company use. Replace it with
-        server-side authentication before deployment.
+  <div id="linkAccount" class="hidden">
+    <div class="notice">
+      Your Firebase account may already exist with email/password
+      sign-in. Sign in with those existing credentials below to
+      link your Google account while preserving the existing UID.
     </div>
 
-</div>
+    <label>Existing account email</label>
+    <input type="email" id="linkEmail"
+      value="vasu.153014@gmail.com">
 
-<!-- DASHBOARD -->
+    <label>Existing account password</label>
+    <input type="password" id="linkPassword"
+      autocomplete="current-password">
+
+    <button id="linkGoogle">LINK GOOGLE ACCOUNT</button>
+  </div>
+
+  <p id="message" role="status"></p>
+</div>
 
 <div class="box hidden" id="dashboard">
+  <h2>Mines Department Dashboard</h2>
+  <p>Naniber Limestone Mines | Kutch, Gujarat</p>
+  <p id="signedInUser"></p>
+  <button id="logout" class="secondary">LOGOUT</button>
 
-    <h2>Mines Department Dashboard</h2>
-    <p>Naniber Limestone Mines | Kutch, Gujarat</p>
+  <hr>
 
-    <button onclick="logout()" class="secondary">LOGOUT</button>
+  <h3 id="formTitle">Add New Observation</h3>
 
-    <hr>
+  <label>Date</label>
+  <input type="date" id="date" required>
 
-    <h3 id="formTitle">Add New Observation</h3>
+  <label>Area / Location</label>
+  <input type="text" id="area" placeholder="Enter mine area" required>
 
-    <label>Date</label>
-    <input type="date" id="date">
+  <label>Observation</label>
+  <textarea id="observation"
+    placeholder="Enter observation details" required></textarea>
 
-    <label>Area / Location</label>
-    <input type="text" id="area"
-    placeholder="Enter mine area">
+  <label>Operational Status</label>
+  <select id="operationalStatus">
+    <option>Open</option>
+    <option>In Progress</option>
+    <option>Closed</option>
+  </select>
 
-    <label>Observation</label>
-    <textarea id="observation"
-    placeholder="Enter observation details"></textarea>
+  <label>Publication Status</label>
+  <select id="publicationStatus">
+    <option value="draft">Draft - Not Public</option>
+    <option value="approved">Approved - Visible Publicly</option>
+  </select>
 
-    <label>Status</label>
-    <select id="status">
-        <option>Open</option>
-        <option>In Progress</option>
-        <option>Closed</option>
-    </select>
+  <button id="saveButton">SAVE OBSERVATION</button>
+  <button id="clearButton" class="secondary">CLEAR</button>
 
-    <button onclick="saveObservation()">
-        SAVE OBSERVATION
-    </button>
+  <p id="formMessage" role="status"></p>
 
-    <button onclick="clearForm()" class="secondary">
-        CLEAR
-    </button>
+  <hr>
+  <h3>Manage Observations</h3>
 
-    <h3>Manage Observations</h3>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Area</th>
-                <th>Observation</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-
-        <tbody id="tableData"></tbody>
-    </table>
-
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Area</th>
+        <th>Observation</th>
+        <th>Operational Status</th>
+        <th>Publication</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="tableData">
+      <tr><td colspan="6">Loading...</td></tr>
+    </tbody>
+  </table>
 </div>
 </div>
 
-<script>
+<script type="module">
+import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
-// DEMO CREDENTIALS ONLY
-const USER_ID = "hod";
-const PASSWORD = "ChangeMe123!";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  linkWithPopup,
+  onAuthStateChanged,
+  signOut
+} from
+  "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-let editIndex = -1;
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+  getDoc,
+  onSnapshot,
+  serverTimestamp,
+  query,
+  orderBy
+} from
+  "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-function loginUser() {
+const firebaseConfig = {
+  apiKey: "AIzaSyA3MfDRK038xZ_BqG0ugtKQya506C5q_jc",
+  authDomain: "naniber-mines-d07d3.firebaseapp.com",
+  projectId: "naniber-mines-d07d3",
+  storageBucket: "naniber-mines-d07d3.firebasestorage.app",
+  messagingSenderId: "740112974860",
+  appId: "1:740112974860:web:7c9883d7ab300cd074da29"
+};
 
-    let username =
-        document.getElementById("username").value;
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
 
-    let password =
-        document.getElementById("password").value;
+const hodEmail = "vasu.153014@gmail.com";
 
-    if(username === USER_ID && password === PASSWORD) {
+let editingId = null;
+let stopListening = null;
 
-        sessionStorage.setItem("adminLoggedIn", "true");
+const $ = id => document.getElementById(id);
 
-        document.getElementById("login").classList.add("hidden");
+function message(text) {
+  $("message").textContent = text;
+}
 
-        document.getElementById("dashboard").classList.remove("hidden");
-
-        showData();
-
+$("googleLogin").addEventListener("click", async () => {
+  message("Opening Google Sign-in...");
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (error) {
+    if (error.code === "auth/account-exists-with-different-credential") {
+      $("linkAccount").classList.remove("hidden");
+      message("This email already has another sign-in method. Link Google to the existing account below.");
     } else {
-
-        document.getElementById("message").innerText =
-            "Incorrect User ID or Password.";
-
+      message("Sign-in error: " + error.message);
     }
-}
+  }
+});
 
-function logout() {
+$("linkGoogle").addEventListener("click", async () => {
+  const email = $("linkEmail").value.trim();
+  const password = $("linkPassword").value;
 
-    sessionStorage.removeItem("adminLoggedIn");
+  if (!email || !password) {
+    message("Enter the existing account email and password.");
+    return;
+  }
 
-    location.reload();
-}
+  try {
+    message("Checking existing account...");
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    await linkWithPopup(result.user, provider);
+    $("linkPassword").value = "";
+    message("Google account linked successfully.");
+  } catch (error) {
+    message("Account linking error: " + error.message);
+  }
+});
 
-function getData() {
+onAuthStateChanged(auth, async user => {
+  if (stopListening) {
+    stopListening();
+    stopListening = null;
+  }
 
-    return JSON.parse(
-        localStorage.getItem("naniberObservations") || "[]"
-    );
+  if (!user) {
+    $("login").classList.remove("hidden");
+    $("dashboard").classList.add("hidden");
+    return;
+  }
 
-}
-
-function saveObservation() {
-
-    let data = getData();
-
-    let item = {
-
-        date: document.getElementById("date").value,
-
-        area: document.getElementById("area").value,
-
-        observation:
-            document.getElementById("observation").value,
-
-        status: document.getElementById("status").value
-
-    };
-
-    if(!item.date || !item.area || !item.observation) {
-
-        alert("Please fill all required fields.");
-
-        return;
+  try {
+    if (user.email !== hodEmail || !user.emailVerified) {
+      throw new Error("This Google account is not the authorised HOD account.");
     }
 
-    if(editIndex === -1) {
+    const adminRef = doc(db, "admins", user.uid);
+    const adminSnap = await getDoc(adminRef);
 
-        data.push(item);
+    if (!adminSnap.exists() || adminSnap.data().role !== "hod") {
+      throw new Error("This account does not have HOD administrator permission.");
+    }
 
+    $("login").classList.add("hidden");
+    $("dashboard").classList.remove("hidden");
+    $("signedInUser").textContent = "Signed in as: " + user.email;
+
+    listenToObservations();
+
+  } catch (error) {
+    message(error.message);
+    await signOut(auth);
+  }
+});
+
+function listenToObservations() {
+  const q = query(
+    collection(db, "observations"),
+    orderBy("date", "desc")
+  );
+
+  stopListening = onSnapshot(q, snapshot => {
+    const tbody = $("tableData");
+    tbody.replaceChildren();
+
+    if (snapshot.empty) {
+      const row = document.createElement("tr");
+      const cell = document.createElement("td");
+      cell.colSpan = 6;
+      cell.textContent = "No observations added yet.";
+      row.appendChild(cell);
+      tbody.appendChild(row);
+      return;
+    }
+
+    snapshot.forEach(documentSnapshot => {
+      const item = documentSnapshot.data();
+      const id = documentSnapshot.id;
+      const row = document.createElement("tr");
+
+      [
+        item.date,
+        item.area,
+        item.observation,
+        item.operationalStatus,
+        item.status === "approved" ? "Approved" : "Draft"
+      ].forEach(value => {
+        const cell = document.createElement("td");
+        cell.textContent = value || "";
+        row.appendChild(cell);
+      });
+
+      const actions = document.createElement("td");
+
+      const edit = document.createElement("button");
+      edit.textContent = "EDIT";
+      edit.className = "secondary";
+      edit.addEventListener("click", () => editObservation(id, item));
+
+      const remove = document.createElement("button");
+      remove.textContent = "DELETE";
+      remove.className = "delete";
+      remove.addEventListener("click", () => deleteObservation(id));
+
+      actions.append(edit, remove);
+      row.appendChild(actions);
+      tbody.appendChild(row);
+    });
+  }, error => {
+    $("formMessage").textContent = "Database error: " + error.message;
+  });
+}
+
+$("saveButton").addEventListener("click", async () => {
+  const date = $("date").value;
+  const area = $("area").value.trim();
+  const observation = $("observation").value.trim();
+
+  if (!date || !area || !observation) {
+    $("formMessage").textContent = "Please fill in all required fields.";
+    return;
+  }
+
+  const item = {
+    date,
+    area,
+    observation,
+    operationalStatus: $("operationalStatus").value,
+    status: $("publicationStatus").value,
+    updatedAt: serverTimestamp()
+  };
+
+  try {
+    $("saveButton").disabled = true;
+
+    if (editingId) {
+      await updateDoc(doc(db, "observations", editingId), item);
+      $("formMessage").textContent = "Observation updated.";
     } else {
-
-        data[editIndex] = item;
-
+      item.createdAt = serverTimestamp();
+      item.createdBy = auth.currentUser.uid;
+      await addDoc(collection(db, "observations"), item);
+      $("formMessage").textContent = "Observation saved.";
     }
-
-    localStorage.setItem(
-        "naniberObservations",
-        JSON.stringify(data)
-    );
 
     clearForm();
+  } catch (error) {
+    $("formMessage").textContent = "Save failed: " + error.message;
+  } finally {
+    $("saveButton").disabled = false;
+  }
+});
 
-    showData();
-
+function editObservation(id, item) {
+  editingId = id;
+  $("date").value = item.date || "";
+  $("area").value = item.area || "";
+  $("observation").value = item.observation || "";
+  $("operationalStatus").value = item.operationalStatus || "Open";
+  $("publicationStatus").value = item.status || "draft";
+  $("formTitle").textContent = "Edit Observation";
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function showData() {
+async function deleteObservation(id) {
+  if (!confirm("Are you sure you want to delete this observation?")) {
+    return;
+  }
 
-    let data = getData();
-
-    let output = "";
-
-    data.forEach((item, index) => {
-
-        output += `
-        <tr>
-
-            <td>${escapeHTML(item.date)}</td>
-
-            <td>${escapeHTML(item.area)}</td>
-
-            <td>${escapeHTML(item.observation)}</td>
-
-            <td>${escapeHTML(item.status)}</td>
-
-            <td>
-                <button class="secondary"
-                onclick="editData(${index})">EDIT</button>
-
-                <button class="delete"
-                onclick="deleteData(${index})">DELETE</button>
-            </td>
-
-        </tr>`;
-
-    });
-
-    document.getElementById("tableData").innerHTML =
-        output || '<tr><td colspan="5">No observations added.</td></tr>';
-
-}
-
-function editData(index) {
-
-    let data = getData();
-
-    let item = data[index];
-
-    document.getElementById("date").value = item.date;
-
-    document.getElementById("area").value = item.area;
-
-    document.getElementById("observation").value =
-        item.observation;
-
-    document.getElementById("status").value = item.status;
-
-    editIndex = index;
-
-    document.getElementById("formTitle").innerText =
-        "Edit Observation";
-
-    window.scrollTo(0,0);
-
-}
-
-function deleteData(index) {
-
-    if(confirm("Are you sure you want to delete this observation?")) {
-
-        let data = getData();
-
-        data.splice(index,1);
-
-        localStorage.setItem(
-            "naniberObservations",
-            JSON.stringify(data)
-        );
-
-        showData();
-
-    }
-
+  try {
+    await deleteDoc(doc(db, "observations", id));
+    $("formMessage").textContent = "Observation deleted.";
+    if (editingId === id) clearForm();
+  } catch (error) {
+    $("formMessage").textContent = "Delete failed: " + error.message;
+  }
 }
 
 function clearForm() {
-
-    document.getElementById("date").value = "";
-
-    document.getElementById("area").value = "";
-
-    document.getElementById("observation").value = "";
-
-    document.getElementById("status").value = "Open";
-
-    editIndex = -1;
-
-    document.getElementById("formTitle").innerText =
-        "Add New Observation";
-
+  editingId = null;
+  $("date").value = "";
+  $("area").value = "";
+  $("observation").value = "";
+  $("operationalStatus").value = "Open";
+  $("publicationStatus").value = "draft";
+  $("formTitle").textContent = "Add New Observation";
 }
 
-function escapeHTML(value) {
-    return String(value ?? "").replace(/[&<>"']/g, c => ({
-        "&":"&amp;", "<":"&lt;", ">":"&gt;",
-        '"':"&quot;", "'":"&#39;"
-    }[c]));
-}
+$("clearButton").addEventListener("click", clearForm);
 
-if(sessionStorage.getItem("adminLoggedIn") === "true") {
-
-    document.getElementById("login").classList.add("hidden");
-
-    document.getElementById("dashboard").classList.remove("hidden");
-
-    showData();
-
-}
-
+$("logout").addEventListener("click", async () => {
+  await signOut(auth);
+});
 </script>
-
 </body>
 </html>
