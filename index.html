@@ -1,22 +1,296 @@
 
-max-width:400px;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuvoco | Naniber Limestone Mines</title>
+
+<style>
+:root {
+    --navy:#102b46;
+    --blue:#174b75;
+    --gold:#e5a928;
+    --bg:#eef2f6;
+    --white:#ffffff;
+    --text:#24364a;
 }
-.modal-box h2 {margin-bottom:20px}
-.close {float:right;cursor:pointer;font-size:22px}
-.admin-only {display:none}
-.delete-btn {
-    background:#dc3545;color:white;border:0;
-    padding:7px 10px;border-radius:4px;cursor:pointer;
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
 }
-@media(max-width:850px) {
-    .cards {grid-template-columns:repeat(2,1fr)}
+
+body {
+    background:var(--bg);
+    color:var(--text);
 }
-@media(max-width:550px) {
-    .cards {grid-template-columns:1fr}
-    header {flex-wrap:wrap;gap:15px}
-    .brand img {width:125px}
-    main {padding:15px}
-    .hero {padding:30px 20px}
+
+/* Background watermark on every page */
+body::before {
+    content:"NUVOCO";
+    position:fixed;
+    top:45%;
+    left:50%;
+    transform:translate(-50%,-50%) rotate(-25deg);
+    font-size:100px;
+    font-weight:900;
+    color:rgba(20,65,100,0.035);
+    pointer-events:none;
+    z-index:0;
+    letter-spacing:12px;
+}
+
+header {
+    height:75px;
+    background:var(--navy);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    position:relative;
+    z-index:2;
+    border-bottom:4px solid var(--gold);
+}
+
+.logo {
+    font-size:27px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.logo span {
+    color:var(--gold);
+}
+
+.header-info {
+    text-align:right;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.layout {
+    display:flex;
+    min-height:calc(100vh - 75px);
+    position:relative;
+    z-index:1;
+}
+
+.sidebar {
+    width:240px;
+    background:var(--navy);
+    color:white;
+    padding:22px 12px;
+    flex-shrink:0;
+}
+
+.sidebar h3 {
+    font-size:12px;
+    color:#9eb6ca;
+    padding:10px 13px;
+    letter-spacing:2px;
+}
+
+.sidebar button {
+    display:block;
+    width:100%;
+    padding:13px;
+    margin:5px 0;
+    background:transparent;
+    color:white;
+    border:0;
+    border-radius:6px;
+    text-align:left;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+    background:var(--blue);
+    border-left:4px solid var(--gold);
+}
+
+main {
+    flex:1;
+    padding:28px;
+    min-width:0;
+}
+
+.page {
+    display:none;
+}
+
+.page.active {
+    display:block;
+}
+
+.page-heading {
+    margin-bottom:22px;
+}
+
+.page-heading h1 {
+    color:var(--navy);
+    font-size:26px;
+    margin-bottom:7px;
+}
+
+.page-heading p {
+    color:#708195;
+    font-size:13px;
+}
+
+.cards {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:17px;
+    margin-bottom:25px;
+}
+
+.card {
+    background:white;
+    border-radius:9px;
+    padding:22px;
+    border:1px solid #e0e6ed;
+    border-top:4px solid var(--blue);
+    box-shadow:0 3px 12px #00000008;
+}
+
+.card small {
+    color:#7c8998;
+    font-size:12px;
+}
+
+.card h2 {
+    margin-top:13px;
+    color:var(--navy);
+    font-size:27px;
+}
+
+.card p {
+    color:#8593a2;
+    font-size:11px;
+    margin-top:8px;
+}
+
+.panel {
+    background:white;
+    border-radius:9px;
+    padding:22px;
+    margin-bottom:22px;
+    border:1px solid #e1e6ec;
+    overflow-x:auto;
+}
+
+.panel h3 {
+    color:var(--navy);
+    margin-bottom:18px;
+}
+
+table {
+    border-collapse:collapse;
+    width:100%;
+    min-width:500px;
+}
+
+th,td {
+    text-align:left;
+    padding:13px;
+    border-bottom:1px solid #e7ebef;
+    font-size:13px;
+}
+
+th {
+    background:#edf3f8;
+    color:var(--navy);
+}
+
+.status {
+    padding:5px 9px;
+    border-radius:20px;
+    background:#e4f5e9;
+    color:#24743c;
+    font-size:11px;
+}
+
+input,select,textarea {
+    padding:11px;
+    width:100%;
+    border:1px solid #d5dde5;
+    border-radius:5px;
+    margin:8px 0 14px;
+    background:white;
+}
+
+label {
+    font-size:13px;
+    font-weight:bold;
+}
+
+.action {
+    padding:11px 18px;
+    background:var(--blue);
+    color:white;
+    border:0;
+    border-radius:5px;
+    cursor:pointer;
+    margin:4px;
+}
+
+.action:hover {
+    background:var(--navy);
+}
+
+.delete {
+    background:#a63838;
+}
+
+footer {
+    text-align:center;
+    padding:20px;
+    font-size:11px;
+    color:#83909c;
+}
+
+/* Admin login */
+#login {
+    position:fixed;
+    inset:0;
+    z-index:10;
+    background:#102b46ee;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.login-box {
+    background:white;
+    width:350px;
+    padding:30px;
+    border-radius:10px;
+}
+
+.login-box h2 {
+    color:var(--navy);
+    margin-bottom:8px;
+}
+
+.login-box p {
+    font-size:12px;
+    color:#788697;
+    margin-bottom:18px;
+}
+
+@media(max-width:700px) {
+    .layout {display:block;}
+    .sidebar {width:100%;}
+    main {padding:15px;}
+    header {padding:12px;}
+    .header-info {font-size:10px;}
 }
 </style>
 </head>
@@ -24,657 +298,539 @@ max-width:400px;
 <body>
 
 <header>
-    <div class="brand">
-        <img src="nuvoco-logo.jpg" alt="NUVOCO Logo">
-        <div>
-            <h2>Naniber Limestone Mines</h2>
-            <p>Kutch, Gujarat | Mines Department</p>
-        </div>
+    <div class="logo">NUVOCO<span>.</span></div>
+    <div class="header-info">
+        <b>NANIBER LIMESTONE MINES</b><br>
+        Kutch, Gujarat | Mines Department
     </div>
-    <button class="login-btn" onclick="openLogin()" id="loginButton">
-        HOD Login
-    </button>
 </header>
 
-<nav>
-    <button class="active" onclick="showPage('home',this)">Dashboard</button>
-    <button onclick="showPage('operations',this)">Operations</button>
-    <button onclick="showPage('production',this)">Production</button>
-    <button onclick="showPage('observations',this)">Observations</button>
-    <button onclick="showPage('safety',this)">Safety</button>
-    <button onclick="showPage('environment',this)">Environment</button>
-    <button onclick="showPage('equipment',this)">Equipment</button>
-    <button onclick="showPage('documents',this)">Documents</button>
-    <button onclick="showPage('admin',this)" id="adminTab" style="display:none">Admin Panel</button>
-</nav>
+<div class="layout">
+
+<aside class="sidebar">
+    <h3>MINES DEPARTMENT</h3>
+
+    <button class="active" onclick="showPage('dashboard',this)">▦ Dashboard</button>
+    <button onclick="showPage('production',this)">▤ Daily Production</button>
+    <button onclick="showPage('operations',this)">⚙ Mine Operations</button>
+    <button onclick="showPage('observations',this)">◉ Observations</button>
+    <button onclick="showPage('safety',this)">♧ Safety</button>
+    <button onclick="showPage('manpower',this)">♙ Manpower</button>
+    <button onclick="showPage('reports',this)">▧ Reports</button>
+    <button onclick="showPage('documents',this)">▤ Documents</button>
+
+    <h3>ADMINISTRATION</h3>
+    <button onclick="openLogin()">⚙ Admin Login</button>
+</aside>
 
 <main>
 
 <!-- DASHBOARD -->
+<section id="dashboard" class="page active">
 
-<section class="page active" id="home">
-
-<div class="hero">
-    <small>NUVOCO | MINES DEPARTMENT</small>
-    <h1>Naniber Limestone Mines</h1>
-    <p>
-        Kutch, Gujarat, India<br>
-        Mines Department Management Portal<br>
-        Operations | Production | Safety | Environment
-    </p>
-</div>
-
-<div class="heading">
-    <h2>Department Dashboard</h2>
-    <p>Centralised mine management and department information.</p>
+<div class="page-heading">
+<h1>Mines Department Dashboard</h1>
+<p>Welcome to Naniber Limestone Mines Management Portal</p>
 </div>
 
 <div class="cards">
+<div class="card">
+<small>DAILY PRODUCTION</small>
+<h2 id="dashProduction">--</h2>
+<p>Tonnes recorded</p>
+</div>
 
-    <div class="card">
-        <h3>MINE LOCATION</h3>
-        <h2>Kutch</h2>
-        <p>Gujarat, India</p>
-    </div>
+<div class="card">
+<small>ACTIVE OBSERVATIONS</small>
+<h2 id="dashObservations">0</h2>
+<p>Department records</p>
+</div>
 
-    <div class="card">
-        <h3>MINE TYPE</h3>
-        <h2>Limestone</h2>
-        <p>Naniber Limestone Mines</p>
-    </div>
+<div class="card">
+<small>SAFETY RECORDS</small>
+<h2 id="dashSafety">0</h2>
+<p>Safety entries</p>
+</div>
 
-    <div class="card">
-        <h3>DEPARTMENT</h3>
-        <h2>Mines</h2>
-        <p>Mining Operations</p>
-    </div>
-
-    <div class="card">
-        <h3>OBSERVATIONS</h3>
-        <h2 id="observationCount">0</h2>
-        <p>Recorded observations</p>
-    </div>
-
+<div class="card">
+<small>MANPOWER</small>
+<h2 id="dashManpower">0</h2>
+<p>Team members entered</p>
+</div>
 </div>
 
 <div class="panel">
-    <h3>Latest Department Observations</h3>
-    <div id="homeObservations">
-        No observations have been added yet.
-    </div>
-</div>
-
-</section>
-
-<!-- OPERATIONS -->
-
-<section class="page" id="operations">
-
-<div class="heading">
-    <h2>Mine Operations</h2>
-    <p>Daily operational activities and shift monitoring.</p>
-</div>
-
-<div class="cards">
-    <div class="card">
-        <h3>Daily Operations</h3>
-        <h2>Reports</h2>
-        <p>Daily activity records</p>
-    </div>
-    <div class="card">
-        <h3>Working Areas</h3>
-        <h2>Mine</h2>
-        <p>Working area information</p>
-    </div>
-    <div class="card">
-        <h3>Shift Management</h3>
-        <h2>Shifts</h2>
-        <p>Shift-wise reporting</p>
-    </div>
-    <div class="card">
-        <h3>Mine Planning</h3>
-        <h2>Plans</h2>
-        <p>Planning and coordination</p>
-    </div>
+<h3>Department Information</h3>
+<p><b>Mine Name:</b> Naniber Limestone Mines</p><br>
+<p><b>Location:</b> Kutch, Gujarat</p><br>
+<p><b>Department:</b> Mines</p><br>
+<p><b>Department Head:</b> Head of Department (HOD)</p><br>
+<p><b>Company:</b> Nuvoco Vistas Corp. Ltd.</p>
 </div>
 
 <div class="panel">
-    <h3>Daily Operations Register</h3>
-    <div class="table-wrap">
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Shift</th>
-            <th>Working Area</th>
-            <th>Remarks</th>
-        </tr>
-        <tr>
-            <td>To be updated</td>
-            <td>—</td>
-            <td>—</td>
-            <td>Awaiting entry</td>
-        </tr>
-    </table>
-    </div>
+<h3>Recent Department Observations</h3>
+<table>
+<thead>
+<tr><th>Date</th><th>Observation</th><th>Status</th></tr>
+</thead>
+<tbody id="dashboardObservations">
+<tr><td colspan="3">No records added yet.</td></tr>
+</tbody>
+</table>
 </div>
-
 </section>
 
 <!-- PRODUCTION -->
-
-<section class="page" id="production">
-
-<div class="heading">
-    <h2>Production Management</h2>
-    <p>Production and dispatch information.</p>
-</div>
-
-<div class="cards">
-    <div class="card">
-        <h3>Daily Production</h3>
-        <h2>—</h2>
-        <p>Verified quantity</p>
-    </div>
-    <div class="card">
-        <h3>Monthly Production</h3>
-        <h2>—</h2>
-        <p>Monthly summary</p>
-    </div>
-    <div class="card">
-        <h3>Dispatch</h3>
-        <h2>—</h2>
-        <p>Dispatch records</p>
-    </div>
-    <div class="card">
-        <h3>Stock Position</h3>
-        <h2>—</h2>
-        <p>Stock information</p>
-    </div>
+<section id="production" class="page">
+<div class="page-heading">
+<h1>Daily Production</h1>
+<p>Daily mine production records</p>
 </div>
 
 <div class="panel">
-    <h3>Production Register</h3>
-    <div class="table-wrap">
-    <table>
-        <tr>
-            <th>Date</th>
-            <th>Material</th>
-            <th>Production</th>
-            <th>Dispatch</th>
-        </tr>
-        <tr>
-            <td>—</td>
-            <td>Limestone</td>
-            <td>—</td>
-            <td>—</td>
-        </tr>
-    </table>
-    </div>
+<h3>Add Production Record</h3>
+<label>Date</label>
+<input type="date" id="prodDate">
+
+<label>Production (Tonnes)</label>
+<input type="number" id="prodAmount" placeholder="Enter production">
+
+<label>Remarks</label>
+<input id="prodRemarks" placeholder="Enter remarks">
+
+<button class="action" onclick="addProduction()">Add Record</button>
 </div>
 
+<div class="panel">
+<h3>Production Register</h3>
+<table>
+<thead><tr><th>Date</th><th>Production</th><th>Remarks</th></tr></thead>
+<tbody id="productionTable"></tbody>
+</table>
+</div>
+</section>
+
+<!-- OPERATIONS -->
+<section id="operations" class="page">
+<div class="page-heading">
+<h1>Mine Operations</h1>
+<p>Operational information and activities</p>
+</div>
+
+<div class="panel">
+<h3>Operations Register</h3>
+<label>Activity</label>
+<input id="operationName" placeholder="Enter activity">
+
+<label>Equipment / Location</label>
+<input id="operationLocation" placeholder="Enter details">
+
+<label>Status</label>
+<select id="operationStatus">
+<option>Active</option>
+<option>Under Maintenance</option>
+<option>Completed</option>
+</select>
+
+<button class="action" onclick="addOperation()">Add Activity</button>
+</div>
+
+<div class="panel">
+<table>
+<thead><tr><th>Activity</th><th>Equipment / Location</th><th>Status</th></tr></thead>
+<tbody id="operationsTable"></tbody>
+</table>
+</div>
 </section>
 
 <!-- OBSERVATIONS -->
-
-<section class="page" id="observations">
-
-<div class="heading">
-    <h2>Mine Observations</h2>
-    <p>Department observations and updates.</p>
+<section id="observations" class="page">
+<div class="page-heading">
+<h1>Department Observations</h1>
+<p>Inspection observations and corrective action tracking</p>
 </div>
 
 <div class="panel">
-    <h3>Observation Register</h3>
-    <div id="observationList">
-        No observations available.
-    </div>
+<h3>New Observation</h3>
+
+<label>Date</label>
+<input type="date" id="obsDate">
+
+<label>Observation Details</label>
+<textarea id="obsDetails" rows="3" placeholder="Enter observation details"></textarea>
+
+<label>Responsible Person</label>
+<input id="obsPerson" placeholder="Enter name">
+
+<label>Status</label>
+<select id="obsStatus">
+<option>Open</option>
+<option>In Progress</option>
+<option>Closed</option>
+</select>
+
+<button class="action" onclick="addObservation()">Save Observation</button>
 </div>
 
-<div class="panel admin-only" id="observationEditor">
-    <h3>Add New Observation</h3>
-
-    <label>Date</label>
-    <input type="date" id="obsDate">
-
-    <label>Observation Title</label>
-    <input type="text" id="obsTitle"
-           placeholder="Enter observation title">
-
-    <label>Department / Area</label>
-    <select id="obsArea">
-        <option>Mines</option>
-        <option>Safety</option>
-        <option>Environment</option>
-        <option>Equipment</option>
-        <option>Operations</option>
-    </select>
-
-    <label>Observation Details</label>
-    <textarea id="obsDetails"
-              placeholder="Enter observation details"></textarea>
-
-    <button class="btn" onclick="addObservation()">
-        Save Observation
-    </button>
+<div class="panel">
+<h3>Observation Register</h3>
+<table>
+<thead>
+<tr><th>Date</th><th>Observation</th><th>Responsible</th><th>Status</th><th>Action</th></tr>
+</thead>
+<tbody id="observationTable"></tbody>
+</table>
 </div>
-
 </section>
 
 <!-- SAFETY -->
-
-<section class="page" id="safety">
-
-<div class="heading">
-    <h2>Safety Management</h2>
-    <p>Mine safety and inspection records.</p>
-</div>
-
-<div class="cards">
-    <div class="card">
-        <h3>Safety Inspections</h3>
-        <h2>01</h2>
-        <p>Inspection register</p>
-    </div>
-    <div class="card">
-        <h3>Safety Training</h3>
-        <h2>02</h2>
-        <p>Training records</p>
-    </div>
-    <div class="card">
-        <h3>Toolbox Meetings</h3>
-        <h2>03</h2>
-        <p>Meeting records</p>
-    </div>
-    <div class="card">
-        <h3>Corrective Actions</h3>
-        <h2>04</h2>
-        <p>Action register</p>
-    </div>
+<section id="safety" class="page">
+<div class="page-heading">
+<h1>Safety Management</h1>
+<p>Safety records and department monitoring</p>
 </div>
 
 <div class="panel">
-    <h3>Safety Department</h3>
-    <p>Maintain inspection reports, safety observations,
-       training records and corrective action updates here.</p>
+<h3>Add Safety Record</h3>
+<label>Safety Observation</label>
+<textarea id="safetyDetails" rows="3" placeholder="Enter safety record"></textarea>
+
+<label>Action Taken</label>
+<input id="safetyAction" placeholder="Enter action taken">
+
+<button class="action" onclick="addSafety()">Save Safety Record</button>
 </div>
 
+<div class="panel">
+<table>
+<thead><tr><th>Observation</th><th>Action Taken</th></tr></thead>
+<tbody id="safetyTable"></tbody>
+</table>
+</div>
 </section>
 
-<!-- ENVIRONMENT -->
-
-<section class="page" id="environment">
-
-<div class="heading">
-    <h2>Environment Management</h2>
-    <p>Environmental monitoring and reporting.</p>
+<!-- MANPOWER -->
+<section id="manpower" class="page">
+<div class="page-heading">
+<h1>Manpower Management</h1>
+<p>Department team information</p>
 </div>
 
-<div class="cards">
-    <div class="card">
-        <h3>Air Quality</h3>
-        <h2>Reports</h2>
-        <p>Dust monitoring</p>
-    </div>
-    <div class="card">
-        <h3>Water Management</h3>
-        <h2>Records</h2>
-        <p>Water monitoring</p>
-    </div>
-    <div class="card">
-        <h3>Plantation</h3>
-        <h2>Updates</h2>
-        <p>Greenbelt activities</p>
-    </div>
-    <div class="card">
-        <h3>Compliance</h3>
-        <h2>Records</h2>
-        <p>Environmental compliance</p>
-    </div>
+<div class="panel">
+<h3>Add Team Member</h3>
+<label>Name</label>
+<input id="memberName" placeholder="Employee name">
+
+<label>Designation</label>
+<input id="memberRole" placeholder="Designation">
+
+<label>Shift</label>
+<select id="memberShift">
+<option>General</option>
+<option>A Shift</option>
+<option>B Shift</option>
+<option>C Shift</option>
+</select>
+
+<button class="action" onclick="addMember()">Add Member</button>
 </div>
 
+<div class="panel">
+<table>
+<thead><tr><th>Name</th><th>Designation</th><th>Shift</th></tr></thead>
+<tbody id="manpowerTable"></tbody>
+</table>
+</div>
 </section>
 
-<!-- EQUIPMENT -->
-
-<section class="page" id="equipment">
-
-<div class="heading">
-    <h2>Equipment Management</h2>
-    <p>Machinery and maintenance records.</p>
+<!-- REPORTS -->
+<section id="reports" class="page">
+<div class="page-heading">
+<h1>Department Reports</h1>
+<p>Department record summary</p>
 </div>
 
-<div class="cards">
-    <div class="card">
-        <h3>Equipment Register</h3>
-        <h2>Fleet</h2>
-        <p>Machinery details</p>
-    </div>
-    <div class="card">
-        <h3>Maintenance</h3>
-        <h2>Service</h2>
-        <p>Maintenance schedule</p>
-    </div>
-    <div class="card">
-        <h3>Breakdown Records</h3>
-        <h2>Log</h2>
-        <p>Breakdown information</p>
-    </div>
-    <div class="card">
-        <h3>Availability</h3>
-        <h2>Status</h2>
-        <p>Fleet status</p>
-    </div>
+<div class="panel">
+<h3>Generate Report</h3>
+<p>Download the current department records in CSV format.</p><br>
+<button class="action" onclick="downloadReport()">Download Department Report</button>
+<button class="action" onclick="window.print()">Print Report</button>
 </div>
-
 </section>
 
 <!-- DOCUMENTS -->
-
-<section class="page" id="documents">
-
-<div class="heading">
-    <h2>Documents & Reports</h2>
-    <p>Department documentation centre.</p>
+<section id="documents" class="page">
+<div class="page-heading">
+<h1>Department Documents</h1>
+<p>Important department information</p>
 </div>
 
 <div class="panel">
-    <h3>Document Categories</h3>
-    <div class="table-wrap">
-    <table>
-        <tr>
-            <th>Document</th>
-            <th>Department</th>
-            <th>Access</th>
-        </tr>
-        <tr>
-            <td>Production Reports</td>
-            <td>Mines</td>
-            <td>Authorised users</td>
-        </tr>
-        <tr>
-            <td>Mine Plans</td>
-            <td>Planning</td>
-            <td>Restricted</td>
-        </tr>
-        <tr>
-            <td>Safety Reports</td>
-            <td>Safety</td>
-            <td>Authorised users</td>
-        </tr>
-        <tr>
-            <td>Environment Reports</td>
-            <td>Environment</td>
-            <td>Restricted</td>
-        </tr>
-    </table>
-    </div>
+<h3>Document Register</h3>
+<p>Use this section to maintain department document references.</p><br>
+<input type="file" id="docFile">
+<button class="action" onclick="addDocument()">Add Document Name</button>
+<ul id="documentList"></ul>
 </div>
-
 </section>
-
-<!-- ADMIN PANEL -->
-
-<section class="page" id="admin">
-
-<div class="heading">
-    <h2>HOD Administration Panel</h2>
-    <p>Manage department observations.</p>
-</div>
-
-<div class="cards">
-    <div class="card">
-        <h3>Total Observations</h3>
-        <h2 id="adminCount">0</h2>
-        <p>Saved entries</p>
-    </div>
-    <div class="card">
-        <h3>Portal Access</h3>
-        <h2>Admin</h2>
-        <p>Demo administration mode</p>
-    </div>
-</div>
-
-<div class="panel">
-    <h3>Manage Observations</h3>
-    <p>Use the Observations section to add new entries.
-       You can delete entries below.</p>
-    <br>
-    <div id="adminObservationList"></div>
-</div>
-
-<div class="panel">
-    <button class="btn" onclick="logout()">Logout</button>
-</div>
-
-</section>
-
-</main>
 
 <footer>
-    <strong>NUVOCO | Naniber Limestone Mines</strong>
-    <span>Mines Department · Kutch, Gujarat</span>
+NUVOCO VISTAS CORP. LTD. | NANIBER LIMESTONE MINES | KUTCH, GUJARAT
 </footer>
 
-<!-- LOGIN WINDOW -->
+</main>
+</div>
 
-<div class="modal" id="loginModal">
+<!-- LOGIN MODAL -->
+<div id="login">
+<div class="login-box">
+<h2>NUVOCO ADMIN</h2>
+<p>Mines Department Administration Portal</p>
 
-<div class="modal-box">
+<label>User ID</label>
+<input id="username" placeholder="Enter User ID">
 
-    <span class="close" onclick="closeLogin()">×</span>
+<label>Password</label>
+<input id="password" type="password" placeholder="Enter Password">
 
-    <h2>HOD Login</h2>
-    <p style="font-size:13px;color:#777">
-        Naniber Limestone Mines Administration
-    </p>
-
-    <br>
-
-    <form onsubmit="login(event)">
-
-        <label>User ID</label>
-        <input type="text" id="username"
-               placeholder="Enter User ID" required>
-
-        <label>Password</label>
-        <input type="password" id="password"
-               placeholder="Enter Password" required>
-
-        <button class="btn" style="width:100%">
-            Login
-        </button>
-
-    </form>
-
-    <p id="loginMessage"
-       style="color:red;font-size:12px;margin-top:12px"></p>
-
+<button class="action" onclick="loginAdmin()">Login</button>
+<button class="action delete" onclick="closeLogin()">Cancel</button>
+<p id="loginMessage"></p>
 </div>
 </div>
 
 <script>
 
-// DEMO LOGIN ONLY
-// Do not use these credentials for a real company portal.
-
-const DEMO_USER = "hod";
-const DEMO_PASSWORD = "nuvoco123";
+// Demo login only. Replace with secure backend authentication.
+const ADMIN_ID = "minesadmin";
+const ADMIN_PASSWORD = "Nuvoco@123";
 
 let isAdmin = false;
 
+let production = [];
+let observations = [];
+let safety = [];
+let manpower = [];
+let operations = [];
+let documents = [];
+
+function showPage(id,btn) {
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+
+    document.querySelectorAll(".sidebar button").forEach(b=>b.classList.remove("active"));
+    if(btn) btn.classList.add("active");
+}
+
 function openLogin() {
-    document.getElementById("loginModal").style.display="flex";
+    document.getElementById("login").style.display="flex";
 }
 
 function closeLogin() {
-    document.getElementById("loginModal").style.display="none";
+    document.getElementById("login").style.display="none";
 }
 
-function login(event) {
-    event.preventDefault();
+function loginAdmin() {
+    let user=document.getElementById("username").value;
+    let pass=document.getElementById("password").value;
 
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
-
-    if(user === DEMO_USER && pass === DEMO_PASSWORD) {
-
-        isAdmin = true;
-
-        document.querySelectorAll(".admin-only").forEach(el=>{
-            el.style.display="block";
-        });
-
-        document.getElementById("adminTab").style.display="block";
-        document.getElementById("loginButton").innerText="Logout";
-
-        document.getElementById("loginButton").onclick=logout;
-
+    if(user===ADMIN_ID && pass===ADMIN_PASSWORD) {
+        isAdmin=true;
         closeLogin();
-        alert("Demo login successful!");
-
-        updateObservations();
-
+        alert("Admin login successful!");
     } else {
-        document.getElementById("loginMessage").innerText =
-        "Incorrect User ID or Password";
+        document.getElementById("loginMessage").textContent="Invalid User ID or Password";
     }
 }
 
-function logout() {
-    isAdmin = false;
-
-    document.querySelectorAll(".admin-only").forEach(el=>{
-        el.style.display="none";
-    });
-
-    document.getElementById("adminTab").style.display="none";
-    document.getElementById("loginButton").innerText="HOD Login";
-    document.getElementById("loginButton").onclick=openLogin;
-
-    showPage("home",document.querySelector('nav button'));
-}
-
-function showPage(id,button) {
-
-    if(id==="admin" && !isAdmin) {
-        alert("Admin login required.");
-        return;
+function requireAdmin() {
+    if(!isAdmin) {
+        alert("Please login through Admin Login to edit records.");
+        openLogin();
+        return false;
     }
-
-    document.querySelectorAll(".page").forEach(page=>{
-        page.classList.remove("active");
-    });
-
-    document.querySelectorAll("nav button").forEach(btn=>{
-        btn.classList.remove("active");
-    });
-
-    document.getElementById(id).classList.add("active");
-    button.classList.add("active");
-
-    updateObservations();
-
-    window.scrollTo({top:0,behavior:"smooth"});
+    return true;
 }
 
-// OBSERVATION MANAGEMENT
+function addProduction() {
+    if(!requireAdmin()) return;
 
-function getObservations() {
-    return JSON.parse(localStorage.getItem("mineObservations") || "[]");
+    production.push({
+        date:prodDate.value,
+        amount:prodAmount.value,
+        remarks:prodRemarks.value
+    });
+
+    prodDate.value="";
+    prodAmount.value="";
+    prodRemarks.value="";
+    render();
 }
 
 function addObservation() {
+    if(!requireAdmin()) return;
 
-    if(!isAdmin) {
-        alert("Admin access required.");
-        return;
-    }
-
-    const date=document.getElementById("obsDate").value;
-    const title=document.getElementById("obsTitle").value.trim();
-    const area=document.getElementById("obsArea").value;
-    const details=document.getElementById("obsDetails").value.trim();
-
-    if(!date || !title || !details) {
-        alert("Please complete all observation fields.");
-        return;
-    }
-
-    let observations=getObservations();
-
-    observations.unshift({
-        date:date,
-        title:title,
-        area:area,
-        details:details
+    observations.push({
+        date:obsDate.value,
+        details:obsDetails.value,
+        person:obsPerson.value,
+        status:obsStatus.value
     });
 
-    localStorage.setItem("mineObservations",JSON.stringify(observations));
-
-    document.getElementById("obsTitle").value="";
-    document.getElementById("obsDetails").value="";
-
-    updateObservations();
-
-    alert("Observation saved on this browser.");
+    obsDate.value="";
+    obsDetails.value="";
+    obsPerson.value="";
+    render();
 }
 
-function deleteObservation(index) {
+function addSafety() {
+    if(!requireAdmin()) return;
 
-    if(!isAdmin) return;
+    safety.push({
+        details:safetyDetails.value,
+        action:safetyAction.value
+    });
 
-    if(!confirm("Delete this observation?")) return;
-
-    let observations=getObservations();
-
-    observations.splice(index,1);
-
-    localStorage.setItem("mineObservations",JSON.stringify(observations));
-
-    updateObservations();
+    safetyDetails.value="";
+    safetyAction.value="";
+    render();
 }
 
-function updateObservations() {
+function addMember() {
+    if(!requireAdmin()) return;
 
-    const observations=getObservations();
+    manpower.push({
+        name:memberName.value,
+        role:memberRole.value,
+        shift:memberShift.value
+    });
 
-    document.getElementById("observationCount").innerText=observations.length;
-    document.getElementById("adminCount").innerText=observations.length;
+    memberName.value="";
+    memberRole.value="";
+    render();
+}
 
-    const home=document.getElementById("homeObservations");
-    const list=document.getElementById("observationList");
-    const admin=document.getElementById("adminObservationList");
+function addOperation() {
+    if(!requireAdmin()) return;
 
-    if(observations.length===0) {
-        home.innerHTML="No observations have been added yet.";
-        list.innerHTML="No observations available.";
-        admin.innerHTML="No observations available.";
-        return;
-    }
+    operations.push({
+        name:operationName.value,
+        location:operationLocation.value,
+        status:operationStatus.value
+    });
 
-    const safe=value=>String(value).replace(/[&<>"']/g,c=>({
+    operationName.value="";
+    operationLocation.value="";
+    render();
+}
+
+function addDocument() {
+    if(!requireAdmin()) return;
+
+    let file=document.getElementById("docFile").files[0];
+    if(!file) return alert("Select a document first.");
+
+    documents.push(file.name);
+    render();
+}
+
+function deleteItem(type,index) {
+    if(!requireAdmin()) return;
+
+    if(!confirm("Delete this record?")) return;
+
+    if(type==="obs") observations.splice(index,1);
+    if(type==="prod") production.splice(index,1);
+    if(type==="safety") safety.splice(index,1);
+    if(type==="manpower") manpower.splice(index,1);
+    if(type==="operations") operations.splice(index,1);
+
+    render();
+}
+
+function render() {
+
+    productionTable.innerHTML=production.map((p,i)=>
+    `<tr><td>${escapeHTML(p.date)}</td>
+    <td>${escapeHTML(p.amount)} Tonnes</td>
+    <td>${escapeHTML(p.remarks)}</td>
+    <td>${isAdmin?`<button class="action delete" onclick="deleteItem('prod',${i})">Delete</button>`:""}</td></tr>`
+    ).join("");
+
+    observationTable.innerHTML=observations.map((o,i)=>
+    `<tr><td>${escapeHTML(o.date)}</td>
+    <td>${escapeHTML(o.details)}</td>
+    <td>${escapeHTML(o.person)}</td>
+    <td>${escapeHTML(o.status)}</td>
+    <td>${isAdmin?`<button class="action delete" onclick="deleteItem('obs',${i})">Delete</button>`:""}</td></tr>`
+    ).join("");
+
+    safetyTable.innerHTML=safety.map((s,i)=>
+    `<tr><td>${escapeHTML(s.details)}</td>
+    <td>${escapeHTML(s.action)}</td>
+    <td>${isAdmin?`<button class="action delete" onclick="deleteItem('safety',${i})">Delete</button>`:""}</td></tr>`
+    ).join("");
+
+    manpowerTable.innerHTML=manpower.map((m,i)=>
+    `<tr><td>${escapeHTML(m.name)}</td>
+    <td>${escapeHTML(m.role)}</td>
+    <td>${escapeHTML(m.shift)}</td>
+    <td>${isAdmin?`<button class="action delete" onclick="deleteItem('manpower',${i})">Delete</button>`:""}</td></tr>`
+    ).join("");
+
+    operationsTable.innerHTML=operations.map((o,i)=>
+    `<tr><td>${escapeHTML(o.name)}</td>
+    <td>${escapeHTML(o.location)}</td>
+    <td>${escapeHTML(o.status)}</td>
+    <td>${isAdmin?`<button class="action delete" onclick="deleteItem('operations',${i})">Delete</button>`:""}</td></tr>`
+    ).join("");
+
+    documentList.innerHTML=documents.map(d=>`<li>${escapeHTML(d)}</li>`).join("");
+
+    dashboardObservations.innerHTML=observations.length ?
+    observations.slice(-5).reverse().map(o=>
+    `<tr><td>${escapeHTML(o.date)}</td>
+    <td>${escapeHTML(o.details)}</td>
+    <td>${escapeHTML(o.status)}</td></tr>`
+    ).join("") :
+    `<tr><td colspan="3">No records added yet.</td></tr>`;
+
+    dashProduction.textContent=production.reduce((sum,p)=>sum+(Number(p.amount)||0),0).toLocaleString("en-IN");
+    dashObservations.textContent=observations.length;
+    dashSafety.textContent=safety.length;
+    dashManpower.textContent=manpower.length;
+}
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g,c=>({
         "&":"&amp;","<":"&lt;",">":"&gt;",
         '"':"&quot;","'":"&#39;"
-    })[c]);
-
-    const html=observations.map((o,i)=>`
-        <div class="observation">
-            <strong>${safe(o.title)}</strong><br>
-            <small>${safe(o.date)} | ${safe(o.area)}</small>
-            <p>${safe(o.details)}</p>
-            ${isAdmin ? `<br><button class="delete-btn"
-            onclick="deleteObservation(${i})">Delete</button>` : ""}
-        </div>
-    `).join("");
-
-    home.innerHTML=html;
-    list.innerHTML=html;
-    admin.innerHTML=html;
+    }[c]));
 }
 
-updateObservations();
+function downloadReport() {
+    let rows=[
+        ["Date","Production","Remarks"],
+        ...production.map(p=>[p.date,p.amount,p.remarks])
+    ];
+
+    rows.push([]);
+    rows.push(["Observation Date","Observation","Responsible","Status"]);
+    observations.forEach(o=>rows.push([o.date,o.details,o.person,o.status]));
+
+    let csv=rows.map(r=>r.map(v=>'"'+String(v??"").replace(/"/g,'""')+'"').join(",")).join("\n");
+    let blob=new Blob([csv],{type:"text/csv"});
+    let url=URL.createObjectURL(blob);
+    let a=document.createElement("a");
+    a.href=url;
+    a.download="Nuvoco_Mines_Report.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+render();
 
 </script>
-
 </body>
 </html>
