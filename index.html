@@ -1,0 +1,760 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUVOCO | Naniber Limestone Mines</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+:root {
+    --orange: #f47721;
+    --dark: #252a30;
+    --light: #f4f5f7;
+}
+
+body {
+    background: var(--light);
+    color: #30343a;
+}
+
+/* NUVOCO WATERMARK ON EVERY PAGE */
+
+body::before {
+    content: "NUVOCO";
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-25deg);
+    font-size: 150px;
+    font-weight: 900;
+    letter-spacing: 15px;
+    color: rgba(244,119,33,0.035);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* HEADER */
+
+.topbar {
+    background: var(--dark);
+    color: white;
+    padding: 10px 35px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+header {
+    background: white;
+    padding: 20px 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-box {
+    background: var(--orange);
+    color: white;
+    font-size: 27px;
+    font-weight: bold;
+    padding: 12px 17px;
+    border-radius: 7px;
+}
+
+.logo h1 {
+    color: var(--dark);
+    font-size: 25px;
+}
+
+.logo p {
+    color: #777;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* NAVIGATION */
+
+nav {
+    background: white;
+    display: flex;
+    overflow-x: auto;
+    padding: 0 25px;
+    border-bottom: 4px solid var(--orange);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+nav button {
+    background: none;
+    border: none;
+    padding: 17px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #444;
+    white-space: nowrap;
+}
+
+nav button:hover,
+nav button.active {
+    color: var(--orange);
+    border-bottom: 3px solid var(--orange);
+}
+
+/* MAIN */
+
+main {
+    position: relative;
+    z-index: 1;
+    max-width: 1450px;
+    margin: auto;
+    padding: 30px;
+}
+
+.hero {
+    background: linear-gradient(110deg, #252a30, #484e55);
+    padding: 55px 40px;
+    border-radius: 12px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero h2 {
+    font-size: 38px;
+    margin: 15px 0;
+}
+
+.hero p {
+    color: #ddd;
+    line-height: 1.7;
+}
+
+.hero .tag {
+    color: #ffad72;
+    font-weight: bold;
+    letter-spacing: 3px;
+    font-size: 12px;
+}
+
+/* PAGE SECTIONS */
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.section-title {
+    margin: 30px 0 18px;
+}
+
+.section-title h2 {
+    font-size: 23px;
+    color: var(--dark);
+}
+
+.section-title p {
+    color: #777;
+    margin-top: 7px;
+    font-size: 13px;
+}
+
+/* DASHBOARD CARDS */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 22px;
+}
+
+.card {
+    background: white;
+    padding: 23px;
+    border-radius: 10px;
+    border: 1px solid #e5e5e5;
+    border-left: 4px solid var(--orange);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+}
+
+.card h3 {
+    font-size: 15px;
+    margin-bottom: 12px;
+    color: #444;
+}
+
+.card h2 {
+    font-size: 28px;
+    color: var(--orange);
+}
+
+.card p {
+    color: #777;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+/* CONTENT BOXES */
+
+.content-box {
+    background: white;
+    padding: 24px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border: 1px solid #e5e5e5;
+}
+
+.content-box h3 {
+    margin-bottom: 15px;
+}
+
+/* TABLES */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+th {
+    background: #30343a;
+    color: white;
+}
+
+/* BUTTONS */
+
+.btn {
+    background: var(--orange);
+    border: none;
+    padding: 11px 18px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #d96012;
+}
+
+/* FORMS */
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 9px 0 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* FOOTER */
+
+footer {
+    background: var(--dark);
+    color: white;
+    padding: 25px 35px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 12px;
+    position: relative;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width:550px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    .hero h2 {
+        font-size: 27px;
+    }
+
+    header {
+        padding: 15px;
+    }
+
+    .topbar {
+        padding: 10px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+    <span>NUVOCO | MINES DEPARTMENT</span>
+    <span>Kutch, Gujarat, India</span>
+</div>
+
+<header>
+    <div class="logo">
+        <div class="logo-box">N</div>
+        <div>
+            <h1>NUVOCO</h1>
+            <p>Naniber Limestone Mines</p>
+        </div>
+    </div>
+    <div style="text-align:right">
+        <strong>MINES DEPARTMENT</strong>
+        <p style="font-size:12px;color:#777;margin-top:5px">
+            Internal Management Portal
+        </p>
+    </div>
+</header>
+
+<nav>
+    <button class="active" onclick="showPage('home',this)">Dashboard</button>
+    <button onclick="showPage('operations',this)">Operations</button>
+    <button onclick="showPage('production',this)">Production</button>
+    <button onclick="showPage('safety',this)">Safety</button>
+    <button onclick="showPage('environment',this)">Environment</button>
+    <button onclick="showPage('equipment',this)">Equipment</button>
+    <button onclick="showPage('documents',this)">Documents</button>
+    <button onclick="showPage('team',this)">Team</button>
+</nav>
+
+<main>
+
+<!-- DASHBOARD -->
+
+<section class="page active" id="home">
+
+<div class="hero">
+    <span class="tag">MINES DEPARTMENT PORTAL</span>
+    <h2>Naniber Limestone Mines</h2>
+    <p>
+        Kutch, Gujarat, India<br>
+        A centralised management portal for mine operations,
+        production monitoring, safety management and team coordination.
+    </p>
+</div>
+
+<div class="section-title">
+    <h2>Department Overview</h2>
+    <p>Quick overview of the mine and department.</p>
+</div>
+
+<div class="cards">
+
+    <div class="card">
+        <h3>Mine Location</h3>
+        <h2>Kutch</h2>
+        <p>Gujarat, India</p>
+    </div>
+
+    <div class="card">
+        <h3>Department</h3>
+        <h2>Mines</h2>
+        <p>Mining Operations</p>
+    </div>
+
+    <div class="card">
+        <h3>Mine Type</h3>
+        <h2>Limestone</h2>
+        <p>Naniber Limestone Mines</p>
+    </div>
+
+    <div class="card">
+        <h3>Portal</h3>
+        <h2>Active</h2>
+        <p>Department Dashboard</p>
+    </div>
+
+</div>
+
+<div class="content-box">
+    <h3>Department Noticeboard</h3>
+    <p>• Daily mine operations review</p><br>
+    <p>• Safety inspection updates</p><br>
+    <p>• Equipment maintenance review</p><br>
+    <p>• Weekly department meeting</p>
+</div>
+
+</section>
+
+<!-- OPERATIONS -->
+
+<section class="page" id="operations">
+
+<div class="section-title">
+    <h2>Mine Operations</h2>
+    <p>Operational management and daily reporting.</p>
+</div>
+
+<div class="cards">
+    <div class="card">
+        <h3>Daily Operations</h3>
+        <h2>—</h2>
+        <p>Daily activity report</p>
+    </div>
+
+    <div class="card">
+        <h3>Working Areas</h3>
+        <h2>—</h2>
+        <p>Approved working areas</p>
+    </div>
+
+    <div class="card">
+        <h3>Shift Reports</h3>
+        <h2>—</h2>
+        <p>Shift-wise reporting</p>
+    </div>
+
+    <div class="card">
+        <h3>Planning</h3>
+        <h2>—</h2>
+        <p>Mine planning updates</p>
+    </div>
+</div>
+
+<div class="content-box">
+    <h3>Daily Operations Register</h3>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Shift</th>
+            <th>Working Area</th>
+            <th>Remarks</th>
+        </tr>
+        <tr>
+            <td>To be updated</td>
+            <td>—</td>
+            <td>—</td>
+            <td>Awaiting entry</td>
+        </tr>
+    </table>
+</div>
+
+</section>
+
+<!-- PRODUCTION -->
+
+<section class="page" id="production">
+
+<div class="section-title">
+    <h2>Production Management</h2>
+    <p>Production monitoring and reporting dashboard.</p>
+</div>
+
+<div class="cards">
+    <div class="card">
+        <h3>Daily Production</h3>
+        <h2>—</h2>
+        <p>Enter verified quantity</p>
+    </div>
+
+    <div class="card">
+        <h3>Monthly Production</h3>
+        <h2>—</h2>
+        <p>Monthly summary</p>
+    </div>
+
+    <div class="card">
+        <h3>Dispatch</h3>
+        <h2>—</h2>
+        <p>Dispatch records</p>
+    </div>
+
+    <div class="card">
+        <h3>Stock</h3>
+        <h2>—</h2>
+        <p>Stock position</p>
+    </div>
+</div>
+
+<div class="content-box">
+    <h3>Production Report</h3>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Material</th>
+            <th>Production</th>
+            <th>Dispatch</th>
+        </tr>
+        <tr>
+            <td>To be entered</td>
+            <td>Limestone</td>
+            <td>—</td>
+            <td>—</td>
+        </tr>
+    </table>
+</div>
+
+</section>
+
+<!-- SAFETY -->
+
+<section class="page" id="safety">
+
+<div class="section-title">
+    <h2>Safety Management</h2>
+    <p>Safety monitoring and compliance records.</p>
+</div>
+
+<div class="cards">
+    <div class="card">
+        <h3>Safety Inspections</h3>
+        <h2>01</h2>
+        <p>Inspection register module</p>
+    </div>
+
+    <div class="card">
+        <h3>Training</h3>
+        <h2>02</h2>
+        <p>Training records module</p>
+    </div>
+
+    <div class="card">
+        <h3>Toolbox Meetings</h3>
+        <h2>03</h2>
+        <p>Meeting records module</p>
+    </div>
+
+    <div class="card">
+        <h3>Corrective Actions</h3>
+        <h2>04</h2>
+        <p>Action tracking module</p>
+    </div>
+</div>
+
+<div class="content-box">
+    <h3>Safety Register</h3>
+    <table>
+        <tr>
+            <th>Activity</th>
+            <th>Responsible Person</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>Daily Inspection</td>
+            <td>To be assigned</td>
+            <td>Update required</td>
+        </tr>
+    </table>
+</div>
+
+</section>
+
+<!-- ENVIRONMENT -->
+
+<section class="page" id="environment">
+
+<div class="section-title">
+    <h2>Environment Management</h2>
+    <p>Environmental monitoring and reporting.</p>
+</div>
+
+<div class="cards">
+    <div class="card">
+        <h3>Air Quality</h3>
+        <h2>01</h2>
+        <p>Monitoring reports</p>
+    </div>
+
+    <div class="card">
+        <h3>Water Management</h3>
+        <h2>02</h2>
+        <p>Water monitoring</p>
+    </div>
+
+    <div class="card">
+        <h3>Plantation</h3>
+        <h2>03</h2>
+        <p>Greenbelt activities</p>
+    </div>
+
+    <div class="card">
+        <h3>Compliance</h3>
+        <h2>04</h2>
+        <p>Compliance records</p>
+    </div>
+</div>
+
+</section>
+
+<!-- EQUIPMENT -->
+
+<section class="page" id="equipment">
+
+<div class="section-title">
+    <h2>Equipment Management</h2>
+    <p>Fleet monitoring and maintenance records.</p>
+</div>
+
+<div class="cards">
+    <div class="card">
+        <h3>Heavy Machinery</h3>
+        <h2>—</h2>
+        <p>Equipment register</p>
+    </div>
+
+    <div class="card">
+        <h3>Maintenance</h3>
+        <h2>—</h2>
+        <p>Service records</p>
+    </div>
+
+    <div class="card">
+        <h3>Breakdowns</h3>
+        <h2>—</h2>
+        <p>Breakdown register</p>
+    </div>
+
+    <div class="card">
+        <h3>Availability</h3>
+        <h2>—</h2>
+        <p>Fleet availability</p>
+    </div>
+</div>
+
+</section>
+
+<!-- DOCUMENTS -->
+
+<section class="page" id="documents">
+
+<div class="section-title">
+    <h2>Documents & Reports</h2>
+    <p>Department document management section.</p>
+</div>
+
+<div class="content-box">
+    <h3>Document Categories</h3>
+    <table>
+        <tr>
+            <th>Document</th>
+            <th>Department</th>
+            <th>Access</th>
+        </tr>
+        <tr>
+            <td>Daily Production Reports</td>
+            <td>Mines</td>
+            <td>Authorised users</td>
+        </tr>
+        <tr>
+            <td>Mine Plans</td>
+            <td>Planning</td>
+            <td>Restricted</td>
+        </tr>
+        <tr>
+            <td>Safety Reports</td>
+            <td>Safety</td>
+            <td>Authorised users</td>
+        </tr>
+        <tr>
+            <td>Environmental Reports</td>
+            <td>Environment</td>
+            <td>Restricted</td>
+        </tr>
+    </table>
+</div>
+
+</section>
+
+<!-- TEAM -->
+
+<section class="page" id="team">
+
+<div class="section-title">
+    <h2>Team & Department Contacts</h2>
+    <p>Department coordination and responsibilities.</p>
+</div>
+
+<div class="cards">
+    <div class="card">
+        <h3>Head of Department</h3>
+        <h2>HOD</h2>
+        <p>Mines Department</p>
+    </div>
+
+    <div class="card">
+        <h3>Mine Operations</h3>
+        <h2>01</h2>
+        <p>Operations Team</p>
+    </div>
+
+    <div class="card">
+        <h3>Safety Team</h3>
+        <h2>02</h2>
+        <p>Safety Coordination</p>
+    </div>
+
+    <div class="card">
+        <h3>Survey & Planning</h3>
+        <h2>03</h2>
+        <p>Planning Team</p>
+    </div>
+</div>
+
+</section>
+
+</main>
+
+<footer>
+    <strong>NUVOCO | Naniber Limestone Mines</strong>
+    <span>Mines Department · Kutch, Gujarat</span>
+</footer>
+
+<script>
+function showPage(pageId, button) {
+
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+
+    document.querySelectorAll('nav button').forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    document.getElementById(pageId).classList.add('active');
+
+    button.classList.add('active');
+
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+</script>
+
+</body>
+</html>
