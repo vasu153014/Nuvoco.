@@ -443,7 +443,83 @@ function escapeHTML(value) {
 }
 
 loadObservations();
-</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
 
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA3MfDRK038xZ_BqG0ugtKQya506C5q_jc",
+  authDomain: "naniber-mines-d07d3.firebaseapp.com",
+  projectId: "naniber-mines-d07d3",
+  storageBucket: "naniber-mines-d07d3.firebasestorage.app",
+  messagingSenderId: "740112974860",
+  appId: "1:740112974860:web:7c9883d7ab300cd074da29"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const observationsList = document.getElementById("observationsList");
+
+const observationsQuery = query(
+  collection(db, "observations"),
+  where("status", "==", "approved")
+);
+
+onSnapshot(observationsQuery, (snapshot) => {
+  observationsList.replaceChildren();
+
+  if (snapshot.empty) {
+    const row = document.createElement("tr");
+    const cell = document.createElement("td");
+    cell.colSpan = 4;
+    cell.textContent = "No published observations yet.";
+    row.appendChild(cell);
+    observationsList.appendChild(row);
+    return;
+  }
+
+  const observations = snapshot.docs
+    .map(document => document.data())
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+
+  observations.forEach(item => {
+    const row = document.createElement("tr");
+
+    const values = [
+      item.date,
+      item.area,
+      item.observation,
+      item.operationalStatus
+    ];
+
+    values.forEach(value => {
+      const cell = document.createElement("td");
+      cell.textContent = value || "";
+      row.appendChild(cell);
+    });
+
+    observationsList.appendChild(row);
+  });
+
+}, (error) => {
+  console.error("Unable to load observations:", error);
+  observationsList.replaceChildren();
+
+  const row = document.createElement("tr");
+  const cell = document.createElement("td");
+  cell.colSpan = 4;
+  cell.textContent = "Observations are temporarily unavailable.";
+  row.appendChild(cell);
+  observationsList.appendChild(row);
+});
+</script>
 </body>
 </html>
